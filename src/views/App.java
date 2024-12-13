@@ -4,6 +4,7 @@ package views;
 import java.util.Scanner;
 
 import controller.ejercicios.Consumodeagua;
+import controller.ejercicios.EjerciciosEnsayo;
 import controller.ejercicios.Secuencia;
 import controller.ejercicios.Sueldovendedores;
 import controller.ejercicios.Tarifatelefono;
@@ -81,6 +82,7 @@ public class App {
                     System.out.println(" ");
                     app.menu_bucle = false; 
                     break;
+
             
                 default:
                     System.out.println("Porfavor, sea muy amable de ingresar una opción valida del menu");

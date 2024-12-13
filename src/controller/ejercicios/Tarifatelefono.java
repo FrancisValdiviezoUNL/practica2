@@ -34,12 +34,23 @@ RESTO DEL MUNDO
 import controller.util.Utilidades;
 
 public class Tarifatelefono {
-  public double telefono (int prefijo, double minutos_llamada) {
-    double pagar = 0.0;
+  public int prefijo (String numero_telef_ingresado) {
+    int prefijo = 0;
+    String numero_telef = Utilidades.validadorEspacios(numero_telef_ingresado);
+    int inicio_prefijo = numero_telef.indexOf("+") + 1;
+    int final_prefijo = numero_telef.indexOf("+") + 3;
+    if (numero_telef.contains("+")) {
+      prefijo = Utilidades.transformStringInt(numero_telef.trim().substring( inicio_prefijo, final_prefijo));
+    } else if (numero_telef.length() == 4 && numero_telef.contains(("("))){
+      prefijo = Utilidades.transformStringInt(numero_telef.trim().substring(1, 3));
+    }else {
+      prefijo = Utilidades.transformStringInt(numero_telef.trim().substring( 0, 2));
+    }
     
-    
-    return pagar;
+    return prefijo;
   }
+
+
   private Scanner sc = new Scanner(System.in);
   public void tarifaTelefono () {
     DecimalFormat formatodecimal = new DecimalFormat("#.00");
@@ -47,9 +58,8 @@ public class Tarifatelefono {
     System.out.println("Ingrese el numero a llamar con el prefijo del pais, ejemplo (+00) o +00");
     System.out.print("INGRESE EL NUMERO: "); 
     String numero_telef_ingresado = sc.nextLine();
-    String numero_telef = Utilidades.validadorEspacios(numero_telef_ingresado);
-    int inicio_prefijo = numero_telef.indexOf("+") + 1;
-    int final_prefijo = numero_telef.indexOf("+") + 3;
+
+
     
     System.out.print("Ingrese el tiempo de la llamada: ");
     String minutos_llamada_1 = sc.nextLine();
@@ -57,17 +67,12 @@ public class Tarifatelefono {
 
     int prefijo = 0;
     
-    if (numero_telef.contains("+")) {
-      prefijo = Utilidades.transformStringInt(numero_telef.trim().substring( inicio_prefijo, final_prefijo));
-    } else {
-      prefijo = Utilidades.transformStringInt(numero_telef.trim().substring( 0, 2));
-    }
-    
+    // funcion para poder obtener el prefijo ingresado
+    prefijo = prefijo(numero_telef_ingresado);
 
     double pagar = 0.0;    String zona = "";
     double tarifa = 0.0;
 
-    System.out.println(minutos_llamada);
     
     if (prefijo == 12) {
       tarifa = 2.75;
@@ -103,11 +108,13 @@ public class Tarifatelefono {
       zona = "RESTO DEL MUNDO";
     }
 
-
-    System.out.println("\n Estas llamando a "+ zona + " con el prefijo (+" + prefijo + ")" );
+    System.out.println(" ");
+    System.out.println("--------------------------------------------------------------------");
+    System.out.println("Estas llamando a "+ zona + " con el prefijo (+" + prefijo + ")" );
     System.out.println("El valor por minuto es de: " + tarifa + " USD" );
     System.out.println("El valor que tiene que cancelar es de " + formatodecimal.format(pagar) + " USD por " + minutos_llamada + " minutos de llamada" );
-    
+    System.out.println("--------------------------------------------------------------------");
+    System.out.println(" ");
     
   }  
 

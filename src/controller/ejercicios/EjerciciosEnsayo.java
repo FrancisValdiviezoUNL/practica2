@@ -82,8 +82,35 @@ public class EjerciciosEnsayo {
 
     }
 
+    //*Ejercicio ensayo 8 */
+    public void funcionparametro(){
+
+         Persona persona = new Persona(25);
+         System.out.println("Edad original: " + persona.edad);
+
+         incrementarEdad(persona);
+ 
+         System.out.println("Edad después de incrementar: " + persona.edad);
+    }
+    public static void incrementarEdad(Persona persona) {
+        persona.incrementarEdad();
+    }
+
     
 }
+class Persona {
+    int edad;
+
+    Persona(int edad) { //es un constructor
+        this.edad = edad;
+    }
+
+    public void incrementarEdad() {
+        this.edad++;
+    }
+}
+
+
 
 
 

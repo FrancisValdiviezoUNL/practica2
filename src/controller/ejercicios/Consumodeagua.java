@@ -14,30 +14,11 @@ los siguientes rubros:
 
 public class Consumodeagua {
     private Scanner sc = new Scanner(System.in);
-    
-    public void consumodeagua (){
-        DecimalFormat formato = new DecimalFormat("#0.00");
-        System.out.println("BIENVENIDOS, SOMOS LA EMPRESA DE AGUA POTABLE DE LOJA");
-        System.out.println(" ");
-        System.out.println("Ingrese el valo de litros de agua consumidos en el mes");
-        System.out.print("Consumo: "); int agua_consumo = sc.nextInt();
-        double tarifa_anterior_sindesc, tarifa_rubro, tarifa_anterior;
-        double pagar_aguapotable = 0.0;
-        int consumo_anterior, consumo_nuevo, opcion_desc_edad_disc;
-        String porcentaje_discapacidad = "";
+    private DecimalFormat formato = new DecimalFormat("#0.00");
+
+    public double descuentoEspecial (int opcion_desc_edad_disc, int agua_consumo){
         double desc_edad_disc = 0.0;
-
-        System.out.println(" ");
-        System.out.println("--------------------------------------------");
-        System.out.println("Tiene alguna condicion especial: ");
-        System.out.println("");
-        System.out.println("1. Persona Normal");
-        System.out.println("2. Persona de la Tercera Edad");
-        System.out.println("3. Persona con dicapacidad");
-        System.out.println("");
-        System.out.print("OPCION: "); opcion_desc_edad_disc = sc.nextInt(); sc.nextLine();
-        System.out.println("--------------------------------------------");
-
+        String porcentaje_discapacidad = "";
         if (opcion_desc_edad_disc == 3) {
             System.out.println("Ingrese el porcentaje de discapacidad: ");
             porcentaje_discapacidad = sc.nextLine();
@@ -51,6 +32,52 @@ public class Consumodeagua {
         } else if (opcion_desc_edad_disc == 1) {
             desc_edad_disc = 0.0;
         }
+        return desc_edad_disc;
+    }
+
+    public void planillaPagar (double pagar_aguapotable, double tasa_alcantarillado, double tasa_recoleccion, double tasa_tramite, double descuento, double desc_edad_disc){
+        
+        double valor_planilla = pagar_aguapotable + tasa_alcantarillado + tasa_recoleccion + tasa_tramite;
+
+        System.out.println("----------------TU PLANILLA ES LA SIGUIENTE----------------");
+        System.out.println(" ");
+        System.out.println("Consumo de agua potable          = " + formato.format(pagar_aguapotable) + " USD");
+        System.out.println("Tasa por alcantarillado          = " + formato.format(tasa_alcantarillado) + " USD");
+        System.out.println("Tasa por recoleccion de residuos = " + formato.format(tasa_recoleccion) + " USD");
+        System.out.println("Tasa por procesamiento de datos  = " + formato.format(tasa_tramite) + " USD");
+        System.out.println("Descuento especial:              = " + formato.format(descuento) + " USD");
+        System.out.println("Descuento aplicado:              = " + desc_edad_disc + " %");
+        System.out.println(" ");
+        System.out.println("Valor total de la planilla       = " + formato.format(valor_planilla) + " USD");
+        System.out.println("-----------------------------------------------------------");
+    }
+
+
+    public void consumodeagua (){
+        
+        System.out.println("BIENVENIDOS, SOMOS LA EMPRESA DE AGUA POTABLE DE LOJA");
+        System.out.println(" ");
+        System.out.println("Ingrese el valo de litros de agua consumidos en el mes");
+        System.out.print("Consumo: "); int agua_consumo = sc.nextInt();
+        double tarifa_anterior_sindesc, tarifa_rubro, tarifa_anterior;
+        double pagar_aguapotable = 0.0;
+        int consumo_anterior, consumo_nuevo, opcion_desc_edad_disc;
+        double desc_edad_disc = 0.0;
+
+        System.out.println(" ");
+        System.out.println("--------------------------------------------");
+        System.out.println("Tiene alguna condicion especial: ");
+        System.out.println("");
+        System.out.println("1. Persona Normal");
+        System.out.println("2. Persona de la Tercera Edad");
+        System.out.println("3. Persona con dicapacidad");
+        System.out.println("");
+        System.out.print("OPCION: "); opcion_desc_edad_disc = sc.nextInt(); sc.nextLine();
+        System.out.println("--------------------------------------------");
+
+
+        // funcion para calcular el descuento especial para  personas de tercera edad o discapacidad.
+        desc_edad_disc = descuentoEspecial(opcion_desc_edad_disc, agua_consumo);        
 
         double descuento = 0.0;
         
@@ -100,19 +127,13 @@ public class Consumodeagua {
      
         double tasa_tramite = 0.75;
 
-     
-        double valor_planilla = pagar_aguapotable + tasa_alcantarillado + tasa_recoleccion + tasa_tramite;
+        //funcion para imprimir la planilla a pagar
         
-        System.out.println("----------------TU PLANILLA ES LA SIGUIENTE----------------");
-        System.out.println(" ");
-        System.out.println("Consumo de agua potable          = " + formato.format(pagar_aguapotable) + " USD");
-        System.out.println("Tasa por alcantarillado          = " + formato.format(tasa_alcantarillado) + " USD");
-        System.out.println("Tasa por recoleccion de residuos = " + formato.format(tasa_recoleccion) + " USD");
-        System.out.println("Tasa por procesamiento de datos  = " + formato.format(tasa_tramite) + " USD");
-        System.out.println("Descuento especial:              = " + formato.format(descuento) + " USD");
-        System.out.println("Descuento aplicado:              = " + desc_edad_disc + " %");
-        System.out.println(" ");
-        System.out.println("Valor total de la planilla       = " + formato.format(valor_planilla) + " USD");
-        System.out.println("-----------------------------------------------------------");
+        planillaPagar(pagar_aguapotable, tasa_alcantarillado, tasa_recoleccion, tasa_tramite, descuento, desc_edad_disc);
+        
+        
+        
     }
+
+    
 }

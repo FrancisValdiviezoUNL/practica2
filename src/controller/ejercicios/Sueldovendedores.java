@@ -9,7 +9,34 @@ import controller.util.Utilidades;
 
 public class Sueldovendedores {
     private Scanner sc = new Scanner(System.in);
-    DecimalFormat formato_decimal = new DecimalFormat("#.00");
+    private DecimalFormat formato_decimal = new DecimalFormat("#.00");
+
+    public int agregarVenda (int agregar_tarea) {
+        System.out.println(" ");
+        System.out.println("¿Deseas ingresar la venta de un vehiculo? ");
+        System.out.println("1. Si");
+        System.out.println("2. No");
+        System.out.print("Menu: ");
+        agregar_tarea = sc.nextInt();
+        sc.nextLine();
+        System.out.println(" ");
+
+        return agregar_tarea;
+        
+    }
+
+    public void informeVentas (boolean ingresar_vehiculos, int vehiculos_vendidos, int vehiculos_vendidos_concomision, double comision_venta_valor_total, double comision_ventatotal_total, double sueldo_total) {
+        if (!ingresar_vehiculos) {
+            System.out.println("--------------Informe de ventas--------------");
+            System.out.println("Vehiculos vendidos:                       " +  vehiculos_vendidos );
+            System.out.println("Vehiculos vendidos con comision:          " +  vehiculos_vendidos_concomision );
+            System.out.println("Comision de ventas por vehiculo:  " + " $ " +  formato_decimal.format(comision_venta_valor_total) );
+            System.out.println("Comision por ventas totales:      " + " $ " +  formato_decimal.format(comision_ventatotal_total) );
+            System.out.println("Sueldo del empleado:              " + " $ " +  formato_decimal.format(sueldo_total) );
+            System.out.println("----------------------------------------------");
+        }
+    }
+
     public void sueldoEmpleados (){
         
         int vehiculos_vendidos = 0;
@@ -29,15 +56,8 @@ public class Sueldovendedores {
 
         while (ingresar_vehiculos){
 
-            System.out.println(" ");
-            System.out.println("¿Deseas ingresar la venta de un vehiculo? ");
-            System.out.println("1. Si");
-            System.out.println("2. No");
-            System.out.print("Menu: ");
-            agregar_tarea = sc.nextInt();
-            sc.nextLine();
-            System.out.println(" ");
-
+            //funcion para agregar mas ventas de vehiculos hasta que el usuario quiera. 
+            agregar_tarea = agregarVenda(agregar_tarea);
 
             if (agregar_tarea == 1){
 
@@ -71,22 +91,12 @@ public class Sueldovendedores {
                 ingresar_vehiculos = false;
             }
 
-
-            
-    
-            
+            informeVentas(ingresar_vehiculos, vehiculos_vendidos, vehiculos_vendidos_concomision, comision_venta_valor_total, comision_ventatotal_total, sueldo_total);
         }
-        if (!ingresar_vehiculos) {
-            System.out.println("--------------Informe de ventas--------------");
-            System.out.println("Vehiculos vendidos:                       " +  vehiculos_vendidos );
-            System.out.println("Vehiculos vendidos con comision:          " +  vehiculos_vendidos_concomision );
-            System.out.println("Comision de ventas por vehiculo:  " + " $ " +  formato_decimal.format(comision_venta_valor_total) );
-            System.out.println("Comision por ventas totales:      " + " $ " +  formato_decimal.format(comision_ventatotal_total) );
-            System.out.println("Sueldo del empleado:              " + " $ " +  formato_decimal.format(sueldo_total) );
-            System.out.println("----------------------------------------------");
-        }
+        
         
 
         
     }
+    
 }
